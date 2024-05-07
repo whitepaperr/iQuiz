@@ -8,9 +8,9 @@
 import UIKit
 
 class QuizDataSource: NSObject, UITableViewDataSource {
-    var quizzes: [Quiz]
+    var quizzes: [Quiz] = []
 
-    init(quizzes: [Quiz]) {
+    func update(quizzes: [Quiz]) {
         self.quizzes = quizzes
     }
 
@@ -19,7 +19,9 @@ class QuizDataSource: NSObject, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "QuizCell", for: indexPath) as! QuizTableViewCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "QuizCell", for: indexPath) as? QuizTableViewCell else {
+            return UITableViewCell()
+        }
         let quiz = quizzes[indexPath.row]
         cell.configure(with: quiz)
         return cell

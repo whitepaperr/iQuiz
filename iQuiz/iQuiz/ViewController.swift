@@ -9,20 +9,28 @@ import UIKit
 
 class ViewController: UIViewController {
     private var tableView = UITableView()
-    private var dataSource: QuizDataSource?
+    private var dataSource = QuizDataSource()
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(showSettings))
         setupTableView()
-        setupToolbar()
         fetchQuizzes()
     }
 
     private func fetchQuizzes() {
-        NetworkingManager.shared.fetchQuizzes { [weak self] quizzes in
-            guard let self = self, let quizzes = quizzes else { return }
+        let urlString = UserDefaults.standard.string(forKey: "QuizURL") ?? "http://tednewardsandbox.site44.com/questions.json"
+        guard let url = URL(string: urlString) else {
+            print("Invalid URL")
+            return
+        }
+        NetworkingManager.shared.fetchQuizzes(from: url) { [weak self] quizzes in
+            guard let self = self, let quizzes = quizzes else {
+                print("Failed to fetch quizzes or no quizzes found")
+                return
+            }
             DispatchQueue.main.async {
-                self.dataSource = QuizDataSource(quizzes: quizzes)
-                self.tableView.dataSource = self.dataSource
+                self.dataSource.update(quizzes: quizzes)
                 self.tableView.reloadData()
             }
         }
@@ -31,7 +39,7 @@ class ViewController: UIViewController {
     private func setupTableView() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.delegate = self
-        tableView.dataSource = self.dataSource
+        tableView.dataSource = dataSource
         tableView.register(QuizTableViewCell.self, forCellReuseIdentifier: "QuizCell")
         view.addSubview(tableView)
 
@@ -43,32 +51,20 @@ class ViewController: UIViewController {
         ])
     }
 
-    private func setupToolbar() {
-        let toolbar = UIToolbar()
-        toolbar.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(toolbar)
-
-        let settingsItem = UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(showSettings))
-        toolbar.setItems([settingsItem], animated: false)
-
-        NSLayoutConstraint.activate([
-            toolbar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            toolbar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            toolbar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            toolbar.heightAnchor.constraint(equalToConstant: 44)
-        ])
-    }
-
     @objc private func showSettings() {
-        let alertController = UIAlertController(title: "Settings", message: "Settings go here", preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "OK", style: .default))
-        present(alertController, animated: true)
+        let settingsVC = SettingsViewController()
+        settingsVC.modalPresentationStyle = .popover
+        settingsVC.preferredContentSize = CGSize(width: 320, height: 200)
+        if let popoverController = settingsVC.popoverPresentationController {
+            popoverController.barButtonItem = navigationItem.rightBarButtonItem
+        }
+        present(settingsVC, animated: true, completion: nil)
     }
 }
 
 extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let quiz = dataSource?.quizzes[indexPath.row] else { return }
+        let quiz = dataSource.quizzes[indexPath.row]
         let detailVC = QuizDetailViewController()
         detailVC.quiz = quiz
         navigationController?.pushViewController(detailVC, animated: true)

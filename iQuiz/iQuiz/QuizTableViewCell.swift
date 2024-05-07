@@ -56,5 +56,4 @@ class QuizTableViewCell: UITableViewCell {
         quizDescriptionLabel.text = quiz.description
         print("Configuring cell: \(quiz.title)")
     }
-
 }

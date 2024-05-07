@@ -87,18 +87,18 @@ class QuizDetailViewController: UIViewController {
 extension QuizDetailViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let quiz = quiz, currentQuestionIndex < quiz.questions.count else { return 0 }
-        return quiz.questions[currentQuestionIndex].options.count
+        return quiz.questions[currentQuestionIndex].answers.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "OptionCell", for: indexPath)
-        cell.textLabel?.text = quiz?.questions[currentQuestionIndex].options[indexPath.row]
+        cell.textLabel?.text = quiz?.questions[currentQuestionIndex].answers[indexPath.row]
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let selectedOption = quiz?.questions[currentQuestionIndex].options[indexPath.row]
+        let selectedOption = quiz?.questions[currentQuestionIndex].answers[indexPath.row]
         if let selectedOption = selectedOption {
             answerChosen(selectedOption)
         }

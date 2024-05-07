@@ -21,6 +21,7 @@
 		CD894BBF2BE1B71800B13FAD /* Quiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD894BBE2BE1B71800B13FAD /* Quiz.swift */; };
 		CD894BC12BE828DD00B13FAD /* QuizDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD894BC02BE828DD00B13FAD /* QuizDetailViewController.swift */; };
 		CD894BC32BE82A8C00B13FAD /* NetworkingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD894BC22BE82A8C00B13FAD /* NetworkingManager.swift */; };
+		CD894BC52BE99AC600B13FAD /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD894BC42BE99AC600B13FAD /* SettingsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		CD894BBE2BE1B71800B13FAD /* Quiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quiz.swift; sourceTree = "<group>"; };
 		CD894BC02BE828DD00B13FAD /* QuizDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizDetailViewController.swift; sourceTree = "<group>"; };
 		CD894BC22BE82A8C00B13FAD /* NetworkingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingManager.swift; sourceTree = "<group>"; };
+		CD894BC42BE99AC600B13FAD /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +117,7 @@
 				CD894B902BE15C0100B13FAD /* Main.storyboard */,
 				CD894BC02BE828DD00B13FAD /* QuizDetailViewController.swift */,
 				CD894BC22BE82A8C00B13FAD /* NetworkingManager.swift */,
+				CD894BC42BE99AC600B13FAD /* SettingsViewController.swift */,
 				CD894BBA2BE1B6DD00B13FAD /* QuizTableViewCell.swift */,
 				CD894B932BE15C0600B13FAD /* Assets.xcassets */,
 				CD894BBE2BE1B71800B13FAD /* Quiz.swift */,
@@ -281,6 +284,7 @@
 				CD894BC32BE82A8C00B13FAD /* NetworkingManager.swift in Sources */,
 				CD894BBD2BE1B70600B13FAD /* QuizDataSource.swift in Sources */,
 				CD894B8D2BE15C0100B13FAD /* SceneDelegate.swift in Sources */,
+				CD894BC52BE99AC600B13FAD /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
