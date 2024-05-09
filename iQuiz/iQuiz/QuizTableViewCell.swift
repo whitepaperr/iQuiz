@@ -54,6 +54,5 @@ class QuizTableViewCell: UITableViewCell {
         quizIconImageView.image = quiz.icon
         quizTitleLabel.text = quiz.title
         quizDescriptionLabel.text = quiz.description
-        print("Configuring cell: \(quiz.title)")
     }
 }

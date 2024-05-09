@@ -13,13 +13,18 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(showSettings))
+        setupNavigation()
         setupTableView()
         fetchQuizzes()
     }
 
+    private func setupNavigation() {
+        navigationItem.title = "iQuiz"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(showSettings))
+    }
+
     private func fetchQuizzes() {
-        let urlString = UserDefaults.standard.string(forKey: "QuizURL") ?? "http://tednewardsandbox.site44.com/questions.json"
+        let urlString = UserDefaults.standard.string(forKey: "QuizURL") ?? "https://tednewardsandbox.site44.com/questions.json"
         guard let url = URL(string: urlString) else {
             print("Invalid URL")
             return
